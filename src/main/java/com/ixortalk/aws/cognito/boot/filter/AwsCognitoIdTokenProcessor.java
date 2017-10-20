@@ -37,6 +37,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -63,7 +65,11 @@ public class AwsCognitoIdTokenProcessor {
         if (idToken != null) {
 
             JWTClaimsSet claimsSet = null;
-
+            if (idToken.contains("Bearer "))
+	        {
+	            	idToken = idToken.split("Bearer ")[1];
+	        }
+        
             claimsSet = configurableJWTProcessor.process(idToken, null);
 
             if (!isIssuedCorrectly(claimsSet)) {

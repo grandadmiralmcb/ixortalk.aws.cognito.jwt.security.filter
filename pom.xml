@@ -27,12 +27,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ixortalk</groupId>
-    <artifactId>ixortalk.aws.cognito.jwt.security.filter</artifactId>
-    <version>0.0.5-SNAPSHOT</version>
+    <groupId>com.falconcis</groupId>
+    <artifactId>com.falconcis.aws.cognito.jwt.security.filter</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
-    <name>ixortalk.aws.cognito.jwt.security.filter</name>
-    <description>Spring Boot Security Filter for verifying an AWS Cognito JWT token</description>
+    <name>falconcis.aws.cognito.jwt.security.filter</name>
+    <description>Spring Boot Security Filter for verifying an AWS Cognito JWT token forked from ixortalk.aws.cognito.jwt.security.filter</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -42,7 +42,7 @@
     </parent>
 
     <scm>
-        <connection>scm:git:git@bitbucket.org:ixorcvba/ixortalk.aws.cognito.jwt.security.filter.git</connection>
+        <connection>scm:git:git@github.com:grandadmiralmcb/ixortalk.aws.cognito.jwt.security.filter.git</connection>
         <tag>HEAD</tag>
     </scm>
 
