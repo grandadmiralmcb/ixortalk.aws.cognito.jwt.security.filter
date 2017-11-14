@@ -23,25 +23,27 @@
  */
 package com.ixortalk.aws.cognito.boot.filter;
 
-import com.ixortalk.aws.cognito.boot.JwtAuthentication;
-import com.ixortalk.aws.cognito.boot.config.JwtIdTokenCredentialsHolder;
-import com.ixortalk.aws.cognito.boot.config.JwtConfiguration;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import javax.servlet.http.HttpServletRequest;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import com.ixortalk.aws.cognito.boot.JwtAuthentication;
+import com.ixortalk.aws.cognito.boot.config.JwtConfiguration;
+import com.ixortalk.aws.cognito.boot.config.JwtIdTokenCredentialsHolder;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 
 public class AwsCognitoIdTokenProcessor {
 
@@ -58,6 +60,8 @@ public class AwsCognitoIdTokenProcessor {
 
     @Autowired
     private JwtIdTokenCredentialsHolder jwtIdTokenCredentialsHolder;
+    
+
 
     public Authentication getAuthentication(HttpServletRequest request) throws Exception {
 
@@ -83,14 +87,33 @@ public class AwsCognitoIdTokenProcessor {
             String username = claimsSet.getClaims().get(jwtConfiguration.getUserNameField()).toString();
 
             if (username != null) {
-
+            	List<GrantedAuthority> grantedAuthorities = null;
                 List<String> groups = (List<String>) claimsSet.getClaims().get(jwtConfiguration.getGroupsField());
-                List<GrantedAuthority> grantedAuthorities = convertList(groups, group -> new SimpleGrantedAuthority(ROLE_PREFIX + group.toUpperCase()));
+                if (groups!= null && groups.size() > 0) 
+                grantedAuthorities = convertList(groups, group -> new SimpleGrantedAuthority(ROLE_PREFIX + group.toUpperCase()));
+                else
+                {
+                	grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(ROLE_PREFIX+"Anonymous"));
+                }
                 User user = new User(username, EMPTY_PWD, grantedAuthorities);
 
                 jwtIdTokenCredentialsHolder.setIdToken(idToken);
                 return new JwtAuthentication(user, claimsSet, grantedAuthorities);
             }
+            
+        
+            
+
+            
+            
+            //get a congito user identity from the userPool
+            
+            
+            //register thread event to call every 58 minutes to refresh user token
+            
+            
+            	
+            
 
         }
 
