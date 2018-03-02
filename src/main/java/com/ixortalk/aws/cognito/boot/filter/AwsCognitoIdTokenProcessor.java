@@ -89,7 +89,7 @@ public class AwsCognitoIdTokenProcessor {
             if (username != null) {
             	List<GrantedAuthority> grantedAuthorities = null;
                 List<String> groups = (List<String>) claimsSet.getClaims().get(jwtConfiguration.getGroupsField());
-                if (groups!= null && groups.size() > 0) 
+                if (claimsSet.getClaims().containsKey(jwtConfiguration.getGroupsField()) && groups != null && groups.size() > 0) 
                 grantedAuthorities = convertList(groups, group -> new SimpleGrantedAuthority(ROLE_PREFIX + group.toUpperCase()));
                 else
                 {
