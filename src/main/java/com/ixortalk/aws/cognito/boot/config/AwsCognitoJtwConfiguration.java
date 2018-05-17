@@ -37,7 +37,7 @@ public class AwsCognitoJtwConfiguration {
     private String identityPoolId;
 
     private String jwkUrl;
-    private String region = "us-west-2";
+    private String region = "us-east-1";
     private String userNameField = "cognito:username";
     private String groupsField = "cognito:groups";
     private int connectionTimeout = 2000;

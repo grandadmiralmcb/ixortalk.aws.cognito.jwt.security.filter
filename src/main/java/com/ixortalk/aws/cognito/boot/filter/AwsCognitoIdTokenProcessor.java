@@ -85,12 +85,12 @@ public class AwsCognitoIdTokenProcessor {
             }
 
             String username = claimsSet.getClaims().get(jwtConfiguration.getUserNameField()).toString();
-
+            System.out.println("Username in this better version:"+ username);
             if (username != null) {
             	List<GrantedAuthority> grantedAuthorities = null;
                 List<String> groups = (List<String>) claimsSet.getClaims().get(jwtConfiguration.getGroupsField());
                 if (claimsSet.getClaims().containsKey(jwtConfiguration.getGroupsField()) && groups != null && groups.size() > 0) 
-                grantedAuthorities = convertList(groups, group -> new SimpleGrantedAuthority(ROLE_PREFIX + group.toUpperCase()));
+                	grantedAuthorities = convertList(groups, group -> new SimpleGrantedAuthority(ROLE_PREFIX + group.toUpperCase()));
                 else
                 {
                 	grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(ROLE_PREFIX+"Anonymous"));
@@ -101,20 +101,10 @@ public class AwsCognitoIdTokenProcessor {
                 return new JwtAuthentication(user, claimsSet, grantedAuthorities);
             }
             
-        
-            
-
-            
-            
             //get a congito user identity from the userPool
-            
-            
+
             //register thread event to call every 58 minutes to refresh user token
             
-            
-            	
-            
-
         }
 
         logger.trace("No idToken found in HTTP Header");
