@@ -84,7 +84,7 @@ public class AwsCognitoIdTokenProcessor {
             }
 
             String username = claimsSet.getClaims().get(jwtConfiguration.getUserNameField()).toString();
-            System.out.println("Username in this better version:"+ username);
+            System.out.println("Username in this version:"+ username);
             if (username != null) {
             	List<GrantedAuthority> grantedAuthorities = null;
                 List<String> groups = (List<String>) claimsSet.getClaims().get(jwtConfiguration.getGroupsField());
